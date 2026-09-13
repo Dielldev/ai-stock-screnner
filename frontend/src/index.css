@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "General Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
+
+  /* Paper and black foundation, with a baby-blue gradient accent layer. */
+  --color-paper: #ecede8;
+  --color-bone: #f7f7f4;
+  --color-ink: #131410;
+  --color-sky: #cdd9f4;
+  --color-sky-soft: #e7edfb;
+  --color-cobalt: #3f63c9;
+}
+
+@layer base {
+  html {
+    background: var(--color-paper);
+  }
+  body {
+    @apply bg-paper font-sans text-ink antialiased;
+  }
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-ink px-5 py-2.5 font-mono text-[11px] font-semibold tracking-[0.16em] uppercase text-paper transition duration-300 hover:opacity-85 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40;
+  }
+  .btn-ghost {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border border-ink/25 bg-transparent px-5 py-2.5 font-mono text-[11px] tracking-[0.16em] uppercase text-ink transition duration-300 hover:border-ink hover:bg-ink/5 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40;
+  }
+  .input-base {
+    @apply w-full rounded-xl border border-ink/15 bg-bone px-3.5 py-2.5 text-sm text-ink transition placeholder:text-ink/35 focus:border-ink/60 focus:ring-1 focus:ring-ink/20 focus:outline-none;
+  }
+  .panel {
+    @apply rounded-2xl border border-ink/10 bg-bone;
+  }
+}
+
+@layer utilities {
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+  .microlabel {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--color-ink) 45%, transparent);
+  }
+  .serif-accent {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--color-cobalt);
+  }
+  .sky-wash {
+    background-image: linear-gradient(135deg, #ffffff 0%, var(--color-sky-soft) 52%, var(--color-sky) 120%);
+  }
+  .sky-aurora {
+    background-image: radial-gradient(1000px 460px at 50% -12%, rgba(99, 134, 219, 0.18), transparent 70%);
+    background-repeat: no-repeat;
+  }
+  .grain {
+    position: fixed;
+    inset: -50%;
+    z-index: 200;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .grid-texture {
+    background-image:
+      linear-gradient(color-mix(in srgb, var(--color-ink) 6%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in srgb, var(--color-ink) 6%, transparent) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .card-enter {
+    animation: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .skeleton {
+    @apply rounded-2xl bg-sky-soft/70;
+    animation: pulse-soft 1.6s ease-in-out infinite;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pulse-soft {
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-enter,
+  .skeleton {
+    animation: none;
+  }
+}
