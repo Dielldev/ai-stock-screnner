@@ -7,27 +7,6 @@ const BASE = "http://localhost:5173";
 const OUT = new URL("../shots/", import.meta.url).pathname;
 mkdirSync(OUT, { recursive: true });
 
-const PROJECT_REF = "ajfyjdqphnrusmvzowvw";
-const YEAR = 365 * 24 * 3600;
-const fakeSession = {
-  access_token: "fake-access-token",
-  token_type: "bearer",
-  expires_in: YEAR,
-  expires_at: Math.floor(Date.now() / 1000) + YEAR,
-  refresh_token: "fake-refresh-token",
-  user: {
-    id: "00000000-0000-4000-8000-000000000000",
-    aud: "authenticated",
-    role: "authenticated",
-    email: "demo@folio.app",
-    app_metadata: { provider: "email", providers: ["email"] },
-    user_metadata: {},
-    identities: [],
-    created_at: "2026-01-01T00:00:00.000Z",
-    updated_at: "2026-01-01T00:00:00.000Z",
-  },
-};
-
 const history = (base, drift) => ({
   points: Array.from({ length: 30 }, (_, i) => {
     const date = new Date(Date.now() - (29 - i) * 864e5).toISOString().slice(0, 10);
@@ -97,13 +76,14 @@ async function preparePage(page, { auth = false } = {}) {
   });
 
   if (auth) {
-    await page.addInitScript(
-      ([key, session]) => {
-        window.localStorage.setItem(key, JSON.stringify(session));
-        window.localStorage.setItem("folio-watchlist", JSON.stringify(["TSLA", "MSFT", "NVDA"]));
-      },
-      [`sb-${PROJECT_REF}-auth-token`, fakeSession]
-    );
+    // Demo build: no session to fake, just seed the browser-local state.
+    await page.addInitScript(() => {
+      window.localStorage.setItem("folio-watchlist", JSON.stringify(["TSLA", "MSFT", "NVDA"]));
+      window.localStorage.setItem(
+        "folio-demo-profile",
+        JSON.stringify({ name: "demo", createdAt: "2026-01-01T00:00:00.000Z" })
+      );
+    });
   }
 }
 

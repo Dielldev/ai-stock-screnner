@@ -160,7 +160,7 @@ export default function HoldingCard({ holding, quote, onDelete, index }) {
         >
           <SparkIcon className="h-3.5 w-3.5" />
           {outlookState === "loading"
-            ? "Reading price action, news & filings…"
+            ? "Reading the simulated series…"
             : outlookState === "open"
               ? "Hide AI Outlook"
               : "AI Outlook"}

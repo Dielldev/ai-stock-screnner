@@ -84,7 +84,7 @@ export default function PortfolioInput({ onSaved, onCancel }) {
             </p>
             <button onClick={parse} disabled={parsing || text.trim().length < 3} className="btn-primary shrink-0">
               <SparkIcon className="h-3.5 w-3.5" />
-              {parsing ? "Parsing…" : "Parse with AI"}
+              {parsing ? "Reading…" : "Read holdings"}
             </button>
           </div>
         </>

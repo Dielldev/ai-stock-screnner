@@ -5,7 +5,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import Lenis from "lenis";
 import { LogoMark } from "../components/icons";
-import { useAuth } from "../context/AuthContext";
 import "../landing/landing.css";
 
 // three.js ships in its own chunk so the wordmark paints immediately
@@ -50,7 +49,6 @@ const LEDGER_ROWS = [
 ];
 
 export default function Landing() {
-  const { session } = useAuth();
   const [reduced] = useState(
     () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
   );
@@ -71,8 +69,9 @@ export default function Landing() {
   const cursorRef = useRef(null);
   const lenisRef = useRef(null);
 
-  const ctaTo = session ? "/dashboard" : "/login";
-  const ctaLabel = session ? "open your desk" : "open folio";
+  // Demo build: no sign-in gate, the desk is always one click away.
+  const ctaTo = "/dashboard";
+  const ctaLabel = "open the demo";
 
   useLayoutEffect(() => {
     const root = rootRef.current;

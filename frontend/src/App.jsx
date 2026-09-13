@@ -1,9 +1,7 @@
 import { Suspense, lazy } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import ProtectedRoute from "./components/ProtectedRoute";
 import Landing from "./pages/Landing";
 
-const Login = lazy(() => import("./pages/Login"));
 const DashboardLayout = lazy(() => import("./layouts/DashboardLayout"));
 const Overview = lazy(() => import("./pages/dash/Overview"));
 const Positions = lazy(() => import("./pages/dash/Positions"));
@@ -25,21 +23,11 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route
-          path="/login"
-          element={
-            <Suspense fallback={<RouteFallback />}>
-              <Login />
-            </Suspense>
-          }
-        />
-        <Route
           path="/dashboard"
           element={
-            <ProtectedRoute>
-              <Suspense fallback={<RouteFallback />}>
-                <DashboardLayout />
-              </Suspense>
-            </ProtectedRoute>
+            <Suspense fallback={<RouteFallback />}>
+              <DashboardLayout />
+            </Suspense>
           }
         >
           <Route
@@ -75,6 +63,8 @@ export default function App() {
             }
           />
         </Route>
+        {/* /login is gone in the demo build — send old links to the desk */}
+        <Route path="/login" element={<Navigate to="/dashboard" replace />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>

@@ -6,7 +6,7 @@ import OutlookPanel from "../../components/OutlookPanel";
 import Panel from "../../components/Panel";
 import TickerBadge from "../../components/TickerBadge";
 import { LogoMark, SparkIcon } from "../../components/icons";
-import { useAuth } from "../../context/AuthContext";
+import { useDemo } from "../../context/DemoContext";
 import { usePortfolio } from "../../context/PortfolioContext";
 import { api } from "../../lib/api";
 import { dirGlyph, fmtCurrency, fmtDate, fmtPercent } from "../../lib/format";
@@ -252,13 +252,13 @@ function BriefPanel({ holdings, quotes }) {
   };
 
   return (
-    <Panel title="AI brief" className="lg:col-span-2">
+    <Panel title="Demo brief" className="lg:col-span-2">
       <div className="flex items-start gap-4">
         <LogoMark className="h-11 w-11 shrink-0" />
         <div className="min-w-0 flex-1">
           <p className="text-lg leading-snug font-medium tracking-tight">
-            folio reads the news and filings behind every position{" "}
-            <span className="serif-accent">so you don't have to.</span>
+            A worked example of the brief folio writes for a position{" "}
+            <span className="serif-accent">— built from simulated data.</span>
           </p>
           {state === "idle" && top && (
             <button onClick={brief} className="btn-primary mt-4">
@@ -267,7 +267,7 @@ function BriefPanel({ holdings, quotes }) {
           )}
           {state === "loading" && (
             <p className="mt-4 font-mono text-xs text-ink/50">
-              Reading price action, news & filings for {top?.ticker}…
+              Reading the simulated series for {top?.ticker}…
             </p>
           )}
           {state === "error" && (
@@ -289,9 +289,8 @@ function BriefPanel({ holdings, quotes }) {
 }
 
 export default function Overview() {
-  const { user } = useAuth();
+  const { name } = useDemo();
   const { holdings, quotes, error } = usePortfolio();
-  const name = user?.email?.split("@")[0] ?? "trader";
   const today = new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" });
 
   const loading = holdings === null;
@@ -334,7 +333,7 @@ export default function Overview() {
           <p className="mt-4 font-mono text-sm text-ink/60">Nothing on the books yet.</p>
           <p className="mt-1.5 max-w-sm text-xs leading-relaxed text-ink/45">
             Add your first positions in plain English and this page comes alive — performance,
-            allocation, movers, and AI briefs.
+            allocation, movers, and briefs.
           </p>
           <Link to="/dashboard/positions" className="btn-primary mt-6">
             Add holdings

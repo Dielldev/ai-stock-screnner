@@ -1,5 +1,17 @@
 # Folio — AI Portfolio Tracker
 
+> ### 🔵 Public demo build
+>
+> The deployed site runs **frontend-only**. There is no backend, no account, and no market feed:
+> quotes, charts, indicators and outlooks are produced by a seeded random-walk simulator in
+> `frontend/src/lib/demoMarket.js`, and your positions and watchlist live in `localStorage`.
+> **Nothing on the demo is real market data**, and no figure there describes a real company.
+>
+> The full-stack app documented below (FastAPI + Supabase + Groq + yfinance + SEC EDGAR) is the
+> real product and its code is still in `backend/`. To run it for real, restore the network client
+> in `frontend/src/lib/api.js`, re-add `@supabase/supabase-js` and the auth context, and deploy the
+> backend (see `render.yaml`).
+
 Track your stock portfolio by describing it in plain English. Folio parses your holdings with an
 LLM, tracks live prices and P&L, and generates an **AI Outlook** per stock — a 3–5 day sentiment
 read built from technical indicators, news headlines, and the company's latest SEC filing.
@@ -206,3 +218,27 @@ All `/api/*` routes require `Authorization: Bearer <supabase access token>`.
 
 This project is for educational purposes. Market data may be delayed or inaccurate. AI Outlooks
 are automated sentiment analysis of public data and must not be treated as investment advice.
+
+
+## Demo build (what is deployed)
+
+The Vercel deployment is built from `frontend/` with no environment variables. It differs from the
+full app in four ways:
+
+| Real app | Demo build |
+| --- | --- |
+| Supabase auth (Google / Apple / email) | No auth — `/dashboard` is open, `/login` redirects to it |
+| FastAPI + Postgres store holdings | `localStorage`, per browser |
+| Groq parses plain-English holdings | Regex + a small company-name map, client-side |
+| yfinance / SEC EDGAR / Groq outlooks | Deterministic simulator; RSI and SMA math is real, the inputs are synthetic |
+
+Demo data is seeded off the ticker string, so a given symbol always draws the same series. Reset
+everything from **Profile → Reset demo**.
+
+Run it locally:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```

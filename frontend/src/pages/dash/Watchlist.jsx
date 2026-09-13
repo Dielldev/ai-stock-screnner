@@ -104,7 +104,7 @@ export default function Watchlist() {
           <div className="flex flex-col items-center rounded-xl border border-dashed border-ink/20 px-6 py-12 text-center">
             <p className="font-mono text-sm text-ink/60">Nothing on watch.</p>
             <p className="mt-1.5 max-w-xs text-xs leading-relaxed text-ink/45">
-              Add tickers you're curious about — folio keeps live quotes on them without touching
+              Add tickers you're curious about — folio keeps simulated quotes on them without touching
               your ledger.
             </p>
           </div>
