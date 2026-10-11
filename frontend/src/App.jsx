@@ -63,7 +63,7 @@ export default function App() {
             }
           />
         </Route>
-        {/* /login is gone in the demo build — send old links to the desk */}
+        {/* no accounts — send old /login links to the desk */}
         <Route path="/login" element={<Navigate to="/dashboard" replace />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

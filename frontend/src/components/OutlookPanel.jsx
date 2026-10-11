@@ -25,7 +25,7 @@ export default function OutlookPanel({ outlook }) {
           <span aria-hidden="true">{tone.glyph}</span>
           {outlook.sentiment}
         </span>
-        <span className="microlabel">simulated read</span>
+        <span className="microlabel">ai read · groq</span>
       </div>
 
       <p className="text-sm leading-relaxed text-ink/90">{outlook.summary}</p>
@@ -82,8 +82,8 @@ export default function OutlookPanel({ outlook }) {
       )}
 
       <p className="microlabel mt-4 opacity-70">
-        Demo outlook — a rule applied to simulated indicators. Not real analysis, not a
-        prediction, not financial advice.
+        AI-generated from technicals and headlines. A sentiment read, not a prediction, not
+        financial advice.
       </p>
     </div>
   );

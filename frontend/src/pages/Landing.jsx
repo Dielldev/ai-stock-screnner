@@ -69,9 +69,9 @@ export default function Landing() {
   const cursorRef = useRef(null);
   const lenisRef = useRef(null);
 
-  // Demo build: no sign-in gate, the desk is always one click away.
+  // No sign-in: the desk is always one click away.
   const ctaTo = "/dashboard";
-  const ctaLabel = "open the demo";
+  const ctaLabel = "open the desk";
 
   useLayoutEffect(() => {
     const root = rootRef.current;

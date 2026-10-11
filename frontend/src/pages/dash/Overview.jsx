@@ -252,13 +252,13 @@ function BriefPanel({ holdings, quotes }) {
   };
 
   return (
-    <Panel title="Demo brief" className="lg:col-span-2">
+    <Panel title="AI brief" className="lg:col-span-2">
       <div className="flex items-start gap-4">
         <LogoMark className="h-11 w-11 shrink-0" />
         <div className="min-w-0 flex-1">
           <p className="text-lg leading-snug font-medium tracking-tight">
-            A worked example of the brief folio writes for a position{" "}
-            <span className="serif-accent">— built from simulated data.</span>
+            A short read on your largest position{" "}
+            <span className="serif-accent">— technicals and headlines, via Groq.</span>
           </p>
           {state === "idle" && top && (
             <button onClick={brief} className="btn-primary mt-4">
@@ -267,7 +267,7 @@ function BriefPanel({ holdings, quotes }) {
           )}
           {state === "loading" && (
             <p className="mt-4 font-mono text-xs text-ink/50">
-              Reading the simulated series for {top?.ticker}…
+              Reading the tape on {top?.ticker}…
             </p>
           )}
           {state === "error" && (
